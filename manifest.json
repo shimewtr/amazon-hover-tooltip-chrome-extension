@@ -13,7 +13,7 @@
         "https://amazon.com/*"
       ],
       "js": ["src/content.js"],
-      "css": ["src/content.css"],
+      "css": ["dist/content.css"],
       "run_at": "document_end"
     }
   ],
