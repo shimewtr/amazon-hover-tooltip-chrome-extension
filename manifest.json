@@ -3,7 +3,19 @@
   "name": "amazon-hover-tooltip",
   "version": "0.1.0",
   "description": "Show product name tooltip when hovering over Amazon product images",
-  "permissions": [],
+  "permissions": ["storage", "activeTab"],
+  "action": {
+    "default_popup": "",
+    "default_title": "Toggle Amazon Hover Tooltip",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": [

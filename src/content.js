@@ -1,7 +1,8 @@
-(function() {
+(function () {
   'use strict';
 
   let tooltip = null;
+  let isEnabled = true;
 
   function createTooltip() {
     const tooltipEl = document.createElement('div');
@@ -12,14 +13,16 @@
   }
 
   function showTooltip(event, title) {
+    if (!isEnabled) return;
+
     if (!tooltip) {
       tooltip = createTooltip();
     }
 
     tooltip.textContent = title;
     tooltip.style.display = 'block';
-    tooltip.style.left = (event.pageX + 10) + 'px';
-    tooltip.style.top = (event.pageY - 30) + 'px';
+    tooltip.style.left = event.pageX + 10 + 'px';
+    tooltip.style.top = event.pageY - 30 + 'px';
   }
 
   function hideTooltip() {
@@ -30,19 +33,24 @@
 
   function handleMouseMove(event) {
     if (tooltip && tooltip.style.display === 'block') {
-      tooltip.style.left = (event.pageX + 10) + 'px';
-      tooltip.style.top = (event.pageY - 30) + 'px';
+      tooltip.style.left = event.pageX + 10 + 'px';
+      tooltip.style.top = event.pageY - 30 + 'px';
     }
   }
 
   const processedImages = new WeakSet();
-  const targetClasses = ['product-image', 'a-dynamic-image', 'a-thumbnail-left', 'coverImage'];
+  const targetClasses = [
+    'product-image',
+    'a-dynamic-image',
+    'a-thumbnail-left',
+    'coverImage',
+  ];
 
   function attachHoverEvents() {
-    const selector = targetClasses.map(cls => `img.${cls}`).join(', ');
+    const selector = targetClasses.map((cls) => `img.${cls}`).join(', ');
     const images = document.querySelectorAll(selector);
 
-    images.forEach(img => {
+    images.forEach((img) => {
       if (processedImages.has(img)) return;
       processedImages.add(img);
 
@@ -60,6 +68,10 @@
   }
 
   function init() {
+    chrome.storage.sync.get(['enabled'], (result) => {
+      isEnabled = result.enabled !== false;
+    });
+
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', attachHoverEvents);
     } else {
@@ -74,9 +86,18 @@
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
   }
+
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.action === 'toggleTooltip') {
+      isEnabled = message.enabled;
+      if (!isEnabled) {
+        hideTooltip();
+      }
+    }
+  });
 
   init();
 })();
