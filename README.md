@@ -1,22 +1,22 @@
 # Amazon Hover Tooltip Chrome Extension
 
-![icon](icons/icon512.png)
+![icon](icons/icon128.png)
 
-![usage](images/usage.gif)
-
-Amazon 商品画像にマウスホバーした際に、商品名をツールチップとして表示する Chrome 拡張機能です。
+Amazon の商品画像にマウスホバーした際に、商品名をツールチップとして表示する Chrome 拡張機能です。
 
 ## 機能
 
-- **ツールチップ表示**: Amazon 商品画像にマウスホバーで alt 属性の内容をツールチップ表示
+- **ツールチップ表示**: Amazon の商品画像にマウスホバーした際に、 alt 属性の内容をツールチップとして表示します。
+  - 画像から商品名がわからない場合でもマウスホバーするだけで商品名を確認できます。
 
-![usage](images/usage.png)
+![usage](images/usage.gif)
 
-- **ON/OFF 切り替え**: 拡張機能アイコンクリックで機能の有効/無効を切り替え
+- **ON/OFF 切り替え**: 拡張機能アイコンクリックで機能の有効/無効を切り替えできます。
+  - どの状態になるかは下図のアイコンを参考にしてください。
 
 | enable                   | disable                            |
 | ------------------------ | ---------------------------------- |
-| ![ON](icons/icon512.png) | ![OFF](icons/icon512-disabled.png) |
+| ![ON](icons/icon128.png) | ![OFF](icons/icon128-disabled.png) |
 
 ## 対応サイト
 
